@@ -26,7 +26,7 @@ import com.poll.framgia.automation.util.ReadWriteFileExcel;
 
 
 public class LoginTestCase {
-	public static final String PATH = "C:\\Users\\Huong\\Downloads\\chromedriver.exe";
+	public static final String PATH = "C:\\Users\\nguyen.thi.thu.huong\\Downloads\\chromedriver_win32\\chromedriver.exe";
 	public static final String DRIVER = "webdriver.chrome.driver";
 	public static final String URL = "http://poll.framgia.vn/login";
 	String fileDataLoginValidPath = "data/user_input_valid.xlsx";
@@ -36,7 +36,7 @@ public class LoginTestCase {
 	String fileUserLoginOutputPath = "data/user_ouput.xlsx";
 	String fileDataInvalidOutputPath = "data/user_data_invalid_output.xlsx";
 	
-	
+	final String MESSAGE_ERROR = "Email không hợp lệ Hãy nhập mật khẩu của bạn Hãy nhập email của bạn";
 	List testResultExport = new ArrayList();
 	EncodeUTF8 encodeUtf8;
 	EmailValidator emailValidator = new EmailValidator();
@@ -76,15 +76,20 @@ public class LoginTestCase {
 	
 	public void login(String email, String password){
 		emailForm = driver.findElement(By.xpath("//input[@placeholder='Nhập địa chỉ emai...']"));
+		emailForm.clear();
+		
 		emailForm.sendKeys(email);
 		passForm = driver.findElement(By.name("password"));
+		passForm.clear();
 		passForm.sendKeys(password);
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
 		driver.findElement(By.xpath("//button[@class='btn btn-success btn-block btn-login btn-darkcyan']")).click();
+		
 	}
 	/*
 	 *  email and password valid
 	 */
-	@Test (dataProvider = "dataUserValid")
+	//@Test (dataProvider = "dataUserValid")
 	public void loginDataValid(String email, String password) throws Exception{
 		if(emailValidator.validate(email))
 		login(email, password);
@@ -127,22 +132,16 @@ public class LoginTestCase {
 	 
 	 public boolean getMessageError(){
 		 WebElement errorMessageForm = driver.findElement(By.xpath("//div[@class='col-lg-12']"));
-		 List<WebElement> errorMessageList = (List<WebElement>) errorMessageForm.findElements(By.tagName("ul"));
+		 List<WebElement> errorMessageList = (List<WebElement>) errorMessageForm.findElements(By.xpath("//ul[@class='alert alert-danger alert-dismissable']//li"));
 			String messages = "";
+			int count = 0;
 			for (int i = 0; i < errorMessageList.size(); i++) {
 				messages = messages + errorMessageList.get(i).getText();
+				if (MESSAGE_ERROR.contains(messages)) count +=1;
 			}
 			System.out.println("messsage"+messages);
-			return messages.toString().contains("Email không hợp lệ");
-	 }
-	 
-	 public boolean getMessageEmailError() throws Exception{
-		 WebElement errorMessageForm = driver.findElement(By.xpath("//div[@class='col-lg-12']"));
-		 String errorMessage =  errorMessageForm.findElements(By.tagName("ul")).get(0).getText();
-		 
-		 System.out.println("message ------"+errorMessage);
-		 emailForm.clear(); passForm.clear();
-			return "Email không hợp lệ".equals(errorMessage.toString());
+			if (count>=1) return true;
+			return false;
 	 }
 	 
 	public void checkLogin(String email, String password, Boolean result){
@@ -164,12 +163,13 @@ public class LoginTestCase {
 	
 	@BeforeTest()
 	public void openBrowser() throws IOException {
+		listUserValid = readWirteExcel.readDataExcel(fileDataLoginValidPath);
+		listUserInvalid = readWirteExcel.readDataExcel(fileDataLoginInvalidPath);
 		System.setProperty(DRIVER,PATH );
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(URL);
-		listUserValid = readWirteExcel.readDataExcel(fileDataLoginValidPath);
-		listUserInvalid = readWirteExcel.readDataExcel(fileDataLoginInvalidPath);
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
 	}
 
 	@AfterTest
