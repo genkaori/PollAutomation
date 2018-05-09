@@ -19,6 +19,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jxls.common.Context;
 import org.jxls.util.JxlsHelper;
 
+import com.poll.framgia.automation.bean.PollBean;
 import com.poll.framgia.automation.bean.UserBean;
 
 
@@ -73,12 +74,60 @@ public class ReadWriteFileExcel {
 			
 			listPreData.add(user);
 		}
+		System.out.println("list data===>"+listPreData.get(1).getEmail()+ "pass"+listPreData.get(1).getPassword());
 		listPreData.remove(0);
 		workbook.close();
 		inputStream.close();
 
 		return listPreData;
 	}
+
+	public List<PollBean> readDataPollExcel(String excelFilePath) throws IOException {
+		List<PollBean> listPreData = new ArrayList<PollBean>();
+		FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+
+		Workbook workbook = getWorkbook(inputStream, excelFilePath);
+		Sheet firstSheet = workbook.getSheetAt(0);
+		Iterator<Row> iterator = firstSheet.iterator();
+
+		while (iterator.hasNext()) {
+			Row nextRow = iterator.next();
+
+			Iterator<Cell> cellIterator = nextRow.cellIterator();
+			PollBean poll = new PollBean();
+
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
+
+				switch (columnIndex) {
+				case 0:
+					poll.setTitle((String) getCellValue(nextCell));
+					break;
+				case 1:
+					poll.setOption((String) getCellValue(nextCell));
+					break;
+				case 2:
+					poll.setDescription((String) getCellValue(nextCell));
+					break;
+				case 3:
+					poll.setLocation((String) getCellValue(nextCell));
+					break;
+				}
+				
+				
+			}
+			
+			listPreData.add(poll);
+		}
+		//System.out.println("list data===>"+listPreData.get(1).getEmail()+ "pass"+listPreData.get(1).getPassword());
+		listPreData.remove(0);
+		workbook.close();
+		inputStream.close();
+
+		return listPreData;
+	}
+	
 	
 	private Workbook getWorkbook(FileInputStream inputStream, String excelFilePath) throws IOException {
 		Workbook workbook = null;
