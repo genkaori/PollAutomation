@@ -1,0 +1,8 @@
+<suite name="Umami Automation" >
+ <test name="Test Signup" >
+  <classes>
+   <class name="test.Exercise" />
+  </classes>
+ </test>
+ 
+</suite>
