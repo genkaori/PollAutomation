@@ -1,4 +1,4 @@
-package com.framgia.automation.umami;
+package com.framgia.automation.funjapan;
 
 public class Test {
 
