@@ -50,7 +50,7 @@ public class Exercise {
 
 		List<WebElement> imgs = driver.findElements(By.tagName("img"));
 		for (WebElement img : imgs) {
-			String alt = img.getAttribute("alt") + "123";
+			String alt = img.getAttribute("alt");
 			if (alt != null) {
 				Assert.assertEquals(alt, name);
 				break;
@@ -62,12 +62,12 @@ public class Exercise {
 	public Object[][] signupData() {
 		Object[][] data = new Object[2][3];
 
-		data[0][0] = "Chu Anh Tuan 05";
-		data[0][1] = "chu.anh.tuan.vn05@gmail.com";
+		data[0][0] = "Chu Anh Tuan 25";
+		data[0][1] = "chu.anh.tuan.vn25@gmail.com";
 		data[0][2] = "123456";
 
-		data[1][0] = "Chu Anh Tuan 06";
-		data[1][1] = "chu.anh.tuan.vn06@gmail.com";
+		data[1][0] = "Chu Anh Tuan 26";
+		data[1][1] = "chu.anh.tuan.vn26@gmail.com";
 		data[1][2] = "123456";
 
 		return data;
