@@ -1,4 +1,4 @@
-package com.framgia.automation.funjapan;
+package com.framgia.automation.funjapan.util;
 
 import java.io.FileInputStream;
 
@@ -23,7 +23,7 @@ public class XLSHelper {
 	public static void readXLS() {
 		FileInputStream ipstr = null;
 		try {
-			ipstr = new FileInputStream("/home/pham.thi.thu.hang/FunJapan_Automation/data/user.xls");
+			ipstr = new FileInputStream("data/user.xls");
 			wb = new HSSFWorkbook(ipstr);
 			ws = wb.getSheetAt(0);
 			ipstr.close();
