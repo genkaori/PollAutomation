@@ -1,5 +1,63 @@
 package com.framgia.automation.funjapan.script;
 
-public abstract class CommonTestCase {
+import static com.framgia.automation.funjapan.util.Setting.URL_ADMIN;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+
+import com.framgia.automation.funjapan.util.Setting;
+import com.framgia.automation.funjapan.util.XLSHelper;
+
+public abstract class CommonTestCase {
+	private WebDriver driver = null;
+
+	@BeforeMethod
+	public void beforeTest() {
+		System.setProperty(Setting.getSetting(Setting.WEBDRIVER), Setting.getSetting(Setting.WEBDRIVER_PATH));
+		driver = new ChromeDriver();
+		driver.get(Setting.getSetting(URL_ADMIN));
+	}
+
+	@AfterMethod
+	public void end() {
+		driver.quit();
+	}
+
+	@DataProvider
+	public Object[][] SetLogin() {
+		Object[][] data = XLSHelper.retrieveCellsMulti(2, 2);
+		return data;
+	}
+
+	public void testLogin(String email, String pass) {
+		WebElement btnLogin = driver
+				.findElement(By.cssSelector("a[href='http://fun-auto-test.framgia.vn/admin/account/facebook']"));
+		btnLogin.click();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		WebElement txtEmail = driver.findElement(By.cssSelector("input[name='email']"));
+		txtEmail.sendKeys(email);
+
+		WebElement txtPass = driver.findElement(By.cssSelector("input[name='pass']"));
+		txtPass.sendKeys(pass);
+
+		WebElement buttonLogin = driver.findElement(By.cssSelector("button[name='login']"));
+		buttonLogin.click();
+
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
