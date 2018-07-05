@@ -1,6 +1,5 @@
 package com.framgia.automation.funjapan.script.research.ThaoDTP_QnA;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -48,7 +47,9 @@ public class search extends CommonTestCase {
 				"#page-wrapper > div.wrapper.wrapper-content > div.wrapper.wrapper-content.animated.fadeInRight > div > div > div > div.ibox-content > div > div > table > tbody > tr"));
 		
 		for (WebElement e : questionList) {
+			
 			String str = e.findElement(By.cssSelector("td.break-word")).getText();
+			
 			Assert.assertTrue(str.contains(question));
 		}
 
@@ -84,9 +85,10 @@ public class search extends CommonTestCase {
 				"#page-wrapper > div.wrapper.wrapper-content > div.wrapper.wrapper-content.animated.fadeInRight > div > div > div > div.ibox-content > div > div > table > tbody > tr"));
 		
 		for (WebElement e : questionList) {
+			
 			String str = e.findElement(By.cssSelector("td.break-word")).getText();
-			System.out.println(str);
-			Assert.assertEquals(str, question);;
+			
+			Assert.assertEquals(str, question);
 		}
 
 	}

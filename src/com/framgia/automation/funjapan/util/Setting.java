@@ -8,6 +8,7 @@ public class Setting {
 	public static final String WEBDRIVER = "webdriver";
 	public static final String WEBDRIVER_PATH = "webdriver-path";
 	public static final String URL_ADMIN = "url-admin";
+	public static final String DATA_FILE = "data-file";
 	
 	public static String getSetting(String key) {
 		return setting.getProperty(key);

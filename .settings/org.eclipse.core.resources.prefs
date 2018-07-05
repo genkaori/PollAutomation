@@ -1,2 +1,6 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/com/framgia/automation/funjapan/script/research/ThaoDTP_QnA/search.java=UTF-8
+=======
+encoding//src/com/framgia/automation/funjapan/util/CommonUtil.java=UTF-8
+>>>>>>> 42cc478b29a5c982e08fd09f5aab3c1ae8bf5ada

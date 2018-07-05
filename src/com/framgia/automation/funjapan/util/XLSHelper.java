@@ -14,16 +14,16 @@ public class XLSHelper {
 	private static HSSFSheet ws = null;
 
 	public static void main(String[] args){
-		readXLS();
-		int r=2;
-		int c=2;
-		retrieveCellsMulti(r,c);
+//		readXLS();
+//		int r=2;
+//		int c=2;
+//		retrieveCellsMulti(r,c);
 	}
 
-	public static void readXLS() {
+	public static void readXLS(String file) {
 		FileInputStream ipstr = null;
 		try {
-			ipstr = new FileInputStream("data/data.xls");
+			ipstr = new FileInputStream(file);
 			wb = new HSSFWorkbook(ipstr);
 			ws = wb.getSheetAt(0);
 			ipstr.close();
@@ -41,8 +41,8 @@ public class XLSHelper {
 		return ws.getRow(0).getLastCellNum();
 	}
 
-	public static Object[][] retrieveCellsMulti(int startRw, int endRw) {
-		readXLS();
+	public static Object[][] retrieveCellsMulti(String file, int startRw, int endRw) {
+		readXLS(file);
 		int colNum = retrieveNoOfCols();
 
 		Object[][] data = new Object[endRw - startRw + 1][colNum];
