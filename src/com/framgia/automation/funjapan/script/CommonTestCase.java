@@ -7,25 +7,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
-public abstract class CommonTestCase {
-	private WebDriver driver = null;
+public class CommonTestCase {
+	public WebDriver driver = null;
 
-	@BeforeMethod
+	@BeforeTest
 	public void beforeTest() {
-		System.setProperty(Setting.getSetting(Setting.WEBDRIVER), Setting.getSetting(Setting.WEBDRIVER_PATH));
+		System.setProperty("webdriver.chrome.driver","/home/pham.thi.thu.hang/Documents/chromedriver" );
 		driver = new ChromeDriver();
-		driver.get(Setting.getSetting(URL_ADMIN));
+		driver.get("http://fun-auto-test.framgia.vn/admin/login");
 	}
 
-	@AfterMethod
+	@AfterTest
 	public void end() {
-		driver.quit();
+		//driver.quit();
 	}
 
 	@DataProvider
@@ -33,7 +36,7 @@ public abstract class CommonTestCase {
 		Object[][] data = XLSHelper.retrieveCellsMulti(2, 2);
 		return data;
 	}
-
+    
 	public void testLogin(String email, String pass) {
 		WebElement btnLogin = driver
 				.findElement(By.cssSelector("a[href='http://fun-auto-test.framgia.vn/admin/account/facebook']"));

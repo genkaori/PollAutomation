@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: chu.anh.tuan
-Build-Jdk: 1.8.0_65
+Built-By: FRAMGIA\pham.thi.thu.hang
+Build-Jdk: 1.8.0_03-Ubuntu
 Created-By: Maven Integration for Eclipse
 
