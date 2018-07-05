@@ -6,9 +6,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+<<<<<<< HEAD
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+=======
+import org.testng.annotations.AfterTest;
+>>>>>>> 4e95ceeb649397dcab93c18a31c6cb0f1c9a561a
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,7 +20,7 @@ import org.testng.annotations.Test;
 import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
-public class CommonTestCase {
+public abstract class CommonTestCase {
 	public WebDriver driver = null;
 
 	@BeforeTest
@@ -33,7 +37,7 @@ public class CommonTestCase {
 
 	@DataProvider
 	public Object[][] SetLogin() {
-		Object[][] data = XLSHelper.retrieveCellsMulti(2, 2);
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_FILE), 2, 2);
 		return data;
 	}
 

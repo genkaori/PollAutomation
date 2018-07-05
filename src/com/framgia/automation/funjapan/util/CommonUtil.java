@@ -16,8 +16,6 @@ import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.w3c.dom.NodeList;
-
 public abstract class CommonUtil {
 
 	public static final String DIGIT_CHAR = "0123456789";
@@ -117,14 +115,6 @@ public abstract class CommonUtil {
 
 	public static boolean isEmpty(Vector vctInput) {
 		if (vctInput == null || vctInput.size() == 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public static boolean isEmpty(NodeList nodeList) {
-		if (nodeList == null || nodeList.getLength() == 0) {
 			return true;
 		}
 
