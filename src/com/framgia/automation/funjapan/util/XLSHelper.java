@@ -23,7 +23,7 @@ public class XLSHelper {
 	public static void readXLS() {
 		FileInputStream ipstr = null;
 		try {
-			ipstr = new FileInputStream("data/user.xls");
+			ipstr = new FileInputStream("data/AnhLTN_data.xls");
 			wb = new HSSFWorkbook(ipstr);
 			ws = wb.getSheetAt(0);
 			ipstr.close();
@@ -59,7 +59,7 @@ public class XLSHelper {
 				} else {
 					data[element][j] = row.getCell(j).getStringCellValue();
 
-					System.out.println(row.getCell(j).getStringCellValue());
+//					System.out.println(row.getCell(j).getStringCellValue());
 
 				}
 
