@@ -13,7 +13,7 @@ import org.testng.annotations.DataProvider;
 import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
-public class CommonTestCase {
+public abstract class CommonTestCase {
 	public WebDriver driver = null;
 
 	@BeforeTest
@@ -31,7 +31,7 @@ public class CommonTestCase {
 
 	@DataProvider
 	public Object[][] SetLogin() {
-		Object[][] data = XLSHelper.retrieveCellsMulti(2, 2);
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_FILE), 2, 2);
 		return data;
 	}
 

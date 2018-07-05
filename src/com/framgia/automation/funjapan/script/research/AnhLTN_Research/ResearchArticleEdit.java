@@ -1,18 +1,14 @@
 package com.framgia.automation.funjapan.script.research.AnhLTN_Research;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import com.framgia.automation.funjapan.script.CommonTestCase;
 
 public class ResearchArticleEdit extends CommonTestCase {
@@ -38,32 +34,13 @@ public class ResearchArticleEdit extends CommonTestCase {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", btnDraft);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//a[contains(@class,'btn-modify')]")).click();
-		// driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/']")).click();
+//		driver.findElement(By.xpath("//a[contains(@class,'btn-modify')]")).click();
+		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/"+ EDIT_ARTICLES_ID + "']")).click();
 
 		// get info after you changed author
 		ArrayList<String> after = new ArrayList<String>();
 		getDataReseachArticleEditPage(after);
 		Assert.assertNotEquals(after.get(0), before.get(0), "Please choose another author");
-		for (int i = 1; i < after.size(); i++) {
-			Assert.assertEquals(after.get(i), before.get(i));
-		}
-	}
-
-	// TC ID: 220 Research Article edit => Change Client ID
-	// @Test(priority = 2)
-	public void testChangeClientId() {
-		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + EDIT_ARTICLES_ID);
-		// get info before you change author
-		ArrayList<String> before = new ArrayList<String>();
-		getDataReseachArticleEditPage(before);
-		// choose another author
-		Select listbox = new Select(driver.findElement(By.id("author_id")));
-		listbox.selectByValue("6");
-		// get info after you changed author
-		ArrayList<String> after = new ArrayList<String>();
-		getDataReseachArticleEditPage(after);
-		Assert.assertNotSame(after.get(0), before.get(0));
 		for (int i = 1; i < after.size(); i++) {
 			Assert.assertEquals(after.get(i), before.get(i));
 		}
