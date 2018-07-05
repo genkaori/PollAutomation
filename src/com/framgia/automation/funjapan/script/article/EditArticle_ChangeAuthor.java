@@ -37,7 +37,7 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 	@Test(priority=2, dataProvider="SetAuthor")
 	public void ChangeAuthor(String author) {
 
-		driver.get("http://fun-auto-test.framgia.vn/admin/articles/755");
+		driver.get("http://fun-auto-test.framgia.vn/admin/articles/813");
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
