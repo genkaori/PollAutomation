@@ -30,7 +30,7 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 	
 	@DataProvider
 	public Object[][] SetAuthor() {
-		Object[][] data = XLSHelper_Author.retrieveCellsMulti(2, 2);
+		Object[][] data = XLSHelper.retrieveCellsMulti("data/author.xls",2, 2);
 		return data;
 	}
 	

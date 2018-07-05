@@ -1,5 +1,7 @@
 package com.framgia.automation.funjapan.script;
 
+import static com.framgia.automation.funjapan.util.Setting.URL_ADMIN;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,9 +22,9 @@ public abstract class CommonTestCase {
 
 	@BeforeTest
 	public void beforeTest() {
-		System.setProperty("webdriver.chrome.driver", "/home/pham.thi.thu.hang/Documents/chromedriver");
+		System.setProperty(Setting.getSetting(Setting.WEBDRIVER), Setting.getSetting(Setting.WEBDRIVER_PATH));
 		driver = new ChromeDriver();
-		driver.get("http://fun-auto-test.framgia.vn/admin/login");
+		driver.get(Setting.getSetting(URL_ADMIN));
 	}
 
 	@AfterTest
