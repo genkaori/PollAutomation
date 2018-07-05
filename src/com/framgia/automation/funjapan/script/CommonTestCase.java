@@ -6,9 +6,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
@@ -34,6 +38,7 @@ public abstract class CommonTestCase {
 		return data;
 	}
 
+	
 	public void testLogin(String email, String pass) {
 		WebElement btnLogin = driver
 				.findElement(By.cssSelector("a[href='http://fun-auto-test.framgia.vn/admin/account/facebook']"));

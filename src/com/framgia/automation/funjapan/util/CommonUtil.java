@@ -16,15 +16,13 @@ import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.w3c.dom.NodeList;
-
 public abstract class CommonUtil {
 
 	public static final String DIGIT_CHAR = "0123456789";
 	public static final String LOW_CASE_CHAR = "abcdefghijklmnopqrstuvwxyz";
 	public static final String UPCASE_CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	public static final String number[] = { "không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
+	public static final String number[] = { "khÃ´ng", "má»™t", "hai", "ba", "bá»‘n", "nÄƒm", "sÃ¡u", "báº£y", "tÃ¡m", "chÃ­n" };
 
 	/**
 	 * convert array to vector
@@ -117,14 +115,6 @@ public abstract class CommonUtil {
 
 	public static boolean isEmpty(Vector vctInput) {
 		if (vctInput == null || vctInput.size() == 0) {
-			return true;
-		}
-
-		return false;
-	}
-
-	public static boolean isEmpty(NodeList nodeList) {
-		if (nodeList == null || nodeList.getLength() == 0) {
 			return true;
 		}
 
@@ -585,37 +575,37 @@ public abstract class CommonUtil {
 		source = source % 10;
 		int unit = source;
 		if (hundred >= 0 && hundred <= 9) {
-			result += number[hundred] + " trăm ";
+			result += number[hundred] + " trÄƒm ";
 		}
 		if (ten > 1 && ten <= 9) {
 			result += number[ten] + " ";
 		}
 		if (ten == 1) {
-			result += "mười ";
+			result += "mÆ°á»�i ";
 		}
 		if (ten == 0) {
 			if (hundred > 0 && unit > 0) {
-				result += "lẻ ";
+				result += "láº» ";
 			}
 		}
 		if (unit > 1) {
 			result += number[unit];
 		}
 		if (unit == 1 && ten > 1) {
-			result += "mốt";
+			result += "má»‘t";
 		}
 		if (unit == 1 && ten <= 1) {
-			result += "một";
+			result += "má»™t";
 		}
 		if (unit == 0 && ten > 1) {
-			result += "mươi";
+			result += "mÆ°Æ¡i";
 		}
 		return result.trim();
 	}
 
 	public static String number2String(long source) {
 		if (source == 0) {
-			return "không";
+			return "khÃ´ng";
 		}
 		String result = "";
 		if (Long.toString(source).length() > 12) {
@@ -629,19 +619,19 @@ public abstract class CommonUtil {
 		source = source % 1000;
 		int dv = (int) source;
 		if (readBaseNumber(ty).length() > 0) {
-			result += readBaseNumber(ty) + " tỷ ";
+			result += readBaseNumber(ty) + " tá»· ";
 		}
 		if (readBaseNumber(trieu).length() > 0) {
-			result += readBaseNumber(trieu) + " triệu ";
+			result += readBaseNumber(trieu) + " triá»‡u ";
 		}
 		if (readBaseNumber(nghin).length() > 0) {
-			result += readBaseNumber(nghin) + " nghìn ";
+			result += readBaseNumber(nghin) + " nghÃ¬n ";
 		}
 		if (readBaseNumber(dv).length() > 0) {
 			result += readBaseNumber(dv);
 		}
 
-		if (result.trim().length() > 5 && result.trim().substring(0, 5).equalsIgnoreCase("không")) {
+		if (result.trim().length() > 5 && result.trim().substring(0, 5).equalsIgnoreCase("khÃ´ng")) {
 			int length = result.trim().length();
 			result = result.substring(11, length);
 		}
