@@ -7,7 +7,7 @@ import com.framgia.automation.funjapan.script.CommonTestCase;
 public class UserTestCase extends CommonTestCase {
 	@Test(priority=1, dataProvider="SetLogin")
 	public void testLogin(String email, String pass) {
-		testLogin(email, pass);
+		super.testLogin(email, pass);
 	}
 
 }
