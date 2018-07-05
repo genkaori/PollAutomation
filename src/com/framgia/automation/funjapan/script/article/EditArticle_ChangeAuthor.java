@@ -37,17 +37,9 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 	@Test(priority=2, dataProvider="SetAuthor")
 	public void ChangeAuthor(String author) {
 
-		driver.get("http://fun-auto-test.framgia.vn/admin/articles");
+		driver.get("http://fun-auto-test.framgia.vn/admin/articles/755");
 		try {
 			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		WebElement link_Article_Edit = driver.findElement(By.xpath("//*[@id=\"page-wrapper\"]/div[3]/div[2]/div/div/div/div/table/tbody/tr[1]/td[11]/a/i"));
-		link_Article_Edit.click();
-		try {
-			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
