@@ -17,7 +17,7 @@ import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
 public abstract class CommonTestCase {
-	public WebDriver driver = null;
+	public static WebDriver driver = null;
 
 	@BeforeTest
 	public void beforeTest() {
@@ -25,6 +25,7 @@ public abstract class CommonTestCase {
 		ChromeOptions options = new ChromeOptions();
 		 options.addArguments("disable-infobars");
 		driver = new ChromeDriver();
+		driver.manage().window().maximize();
 		driver.get(Setting.getSetting(URL_ADMIN));
 		driver.manage().window().maximize();
 	}
