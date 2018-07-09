@@ -6,12 +6,14 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.framgia.automation.funjapan.script.CommonTestCase;
+import com.framgia.automation.funjapan.util.XLSHelper;
 
-import testng.XLSHelper;
+
 
 
 public class Coupon_Search_ArticleID extends CommonTestCase {
@@ -22,13 +24,13 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 	}
 	
 	@DataProvider
-	public static Object[][] testNameBlank() {	
-		Object[][] data = XLSHelper.retrieveCellsMulti(2, 2);
+	public static Object[][] testSearch_ClientID() {	
+		Object[][] data = XLSHelper.retrieveCellsMulti("/home/le.thi.thuyb/Documents/FunJapan_Automation/data/user.xls", 3, 3);
 		return data;
 	}
 	
-	@Test(priority=1)
-	public void Search_ArticleID () {
+	@Test(priority=1, dataProvider="testSearch_ClientID")
+	public void Search_ArticleID (String ExpSearch, String test) {
 		driver.get("http://fun-auto-test.framgia.vn/admin/coupons");
 		try {
 			Thread.sleep(2000);
@@ -37,17 +39,27 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 			e.printStackTrace();
 		}
 		
-		
 		driver.findElement(By.xpath("//div[@class='input-group-btn']")).click();
 		WebElement listArticleIDSearch = driver.findElement(By.xpath("//ul[@class='dropdown-menu search-by']"));
 		List<WebElement> options = listArticleIDSearch.findElements(By.tagName("li"));
 		options.get(0).click();
 		
-		WebElement txtInput = driver.findElement(By.cssSelector("input[class='form-control']"));
-		txtInput.sendKeys("1");
+		WebElement txtInput = driver.findElement(By.cssSelector("div[class='input-group col-md-10 '] input[type='text']"));
+		txtInput.sendKeys(ExpSearch);
 		
 		WebElement btnSearch = driver.findElement(By.cssSelector("button[class='btn btn-primary bg-custom']"));
 		btnSearch.click();
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		List<WebElement> lists = driver.findElements(By.cssSelector(".table.table-bordered.article-table tbody tr"));
+		for (WebElement el : lists) {	
+			String str = el.findElement(By.cssSelector("td.text-center")).getText();
+				Assert.assertTrue(str.contains(ExpSearch));
+		}	
+		Assert.assertEquals(txtInput.getAttribute("value"), ExpSearch);
 	}
-
 }
