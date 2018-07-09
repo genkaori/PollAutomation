@@ -6,6 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -18,6 +22,8 @@ public abstract class CommonTestCase {
 	@BeforeTest
 	public void beforeTest() {
 		System.setProperty(Setting.getSetting(Setting.WEBDRIVER), Setting.getSetting(Setting.WEBDRIVER_PATH));
+		ChromeOptions options = new ChromeOptions();
+		 options.addArguments("disable-infobars");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(Setting.getSetting(URL_ADMIN));
@@ -26,7 +32,7 @@ public abstract class CommonTestCase {
 
 	@AfterTest
 	public void end() {
-		driver.quit();
+	//	driver.quit();
 	}
 
 	@DataProvider

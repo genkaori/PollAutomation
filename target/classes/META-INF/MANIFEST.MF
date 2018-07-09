@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: FRAMGIA\le.thi.ngoc.anh
 Build-Jdk: 1.8.0_144
@@ -11,3 +12,10 @@ Build-Jdk: 1.8.0_03-Ubuntu
 Created-By: Maven Integration for Eclipse
 
 >>>>>>> 8022b41c70be7ce632bf37179fe9d18b4d51cc0c
+=======
+Manifest-Version: 1.0
+Built-By: FRAMGIA\le.thi.thuyb
+Build-Jdk: 1.8.0_171
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> ad6472fded2474fb3619e97f39064a50d5ad8033
