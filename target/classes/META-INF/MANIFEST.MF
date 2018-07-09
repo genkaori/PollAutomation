@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: thuylt
-Build-Jdk: 1.8.0_144
+Built-By: FRAMGIA\pham.thi.thu.hang
+Build-Jdk: 1.8.0_03-Ubuntu
 Created-By: Maven Integration for Eclipse
 
