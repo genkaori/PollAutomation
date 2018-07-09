@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Umami Automation" >
- <test name="Test Signup" >
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Fun!Japan Automation" >
+ <test name="Test Login" >
   <classes>
-   <!-- <class name="test.Exercise" /> -->
    <class name="com.framgia.automation.funjapan.script.CommonTestCase" />
-   <class name="com.framgia.automation.funjapan.script.research.newresearch_ThuyLT.CheckDraftButton" />
   </classes>
  </test>
  
