@@ -1,8 +1,9 @@
 package com.framgia.automation.funjapan.script.research.newresearch_ThuyLT;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -13,10 +14,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import com.framgia.automation.funjapan.script.CommonTestCase;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
-public class CheckDraftButton extends CommonTestCase {
+public class CheckQASettingButton extends CommonTestCase {
 	@Test(priority=1, dataProvider="SetLogin")
 	public void testLogin(String email, String pass) {
 		super.testLogin(email, pass);
@@ -24,14 +26,14 @@ public class CheckDraftButton extends CommonTestCase {
 	
 	//Case blank
 	@Test(priority=2)
-	public void checkBtnDraft() {
+	public void checkBtnQASetting() {
 		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/create");
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-		WebElement btnDraft = driver.findElement(By.xpath("//form/div[5]/div[2]/button"));
+		WebElement btnQA = driver.findElement(By.className("check-preview"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", btnDraft);
+		js.executeScript("arguments[0].click();", btnQA);
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -57,7 +59,8 @@ public class CheckDraftButton extends CommonTestCase {
 		Assert.assertTrue(error_mess.contains("The Meta Description field is required."));
 	}
 	
-	//Case valid
+	
+	//Case 2: Case valid
 	@DataProvider
 	public Object[][] SetDataCreate() {
 		Object[][] data = XLSHelper.retrieveCellsMulti("data/data_ThuyLT.xls",2, 2);
@@ -123,13 +126,21 @@ public class CheckDraftButton extends CommonTestCase {
 		WebElement txtDescription = driver.findElement(By.cssSelector("#description"));
 		txtDescription.sendKeys(meta_description);
 		
-		WebElement btnDraft = driver.findElement(By.xpath("//form/div[5]/div[2]/button"));		
+		WebElement btnQA = driver.findElement(By.className("check-preview"));		
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", btnDraft);
+		js.executeScript("arguments[0].click();", btnQA);
 		
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		WebElement textCheck = driver.findElement(By.cssSelector("#alert-message p"));
-		Assert.assertTrue(textCheck.getText().equals("Created Successfully"));
+		System.out.println(driver.getCurrentUrl());
+		Assert.assertTrue(driver.getCurrentUrl()
+				.equals("http://fun-auto-test.framgia.vn/admin/researchArticles/preview"));
+		
 	}
+	
 }
