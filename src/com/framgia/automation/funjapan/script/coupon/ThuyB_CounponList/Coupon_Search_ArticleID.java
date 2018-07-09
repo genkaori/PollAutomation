@@ -70,7 +70,7 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 	}
 	
 	@Test(priority=2, dataProvider="testSearch_ClientID_Not_Existed")
-	public void Search_ClientID (String ExpSearch, String test) {
+	public void Search_ClientID (String ExpSearch, String Result_test) {
 		driver.get("http://fun-auto-test.framgia.vn/admin/coupons");
 		try {
 			Thread.sleep(2000);
@@ -96,6 +96,6 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 			e.printStackTrace();
 		}
 		WebElement result = driver.findElement(By.cssSelector(".table.table-bordered.article-table tbody tr td span"));
-				Assert.assertEquals(result.getText(),"No Articles");
+				Assert.assertEquals(result.getText(),Result_test);
 	}
 }
