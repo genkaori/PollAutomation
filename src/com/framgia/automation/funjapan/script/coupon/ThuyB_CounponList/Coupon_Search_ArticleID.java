@@ -29,7 +29,7 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 		return data;
 	}
 	
-	@Test(priority=1, dataProvider="testSearch_ClientID")
+	//@Test(priority=1, dataProvider="testSearch_ClientID")
 	public void Search_ArticleID (String ExpSearch, String test) {
 		driver.get("http://fun-auto-test.framgia.vn/admin/coupons");
 		try {
@@ -61,5 +61,41 @@ public class Coupon_Search_ArticleID extends CommonTestCase {
 				Assert.assertTrue(str.contains(ExpSearch));
 		}	
 		Assert.assertEquals(txtInput.getAttribute("value"), ExpSearch);
+	}
+	
+	@DataProvider
+	public static Object[][] testSearch_ClientID_Not_Existed() {	
+		Object[][] data = XLSHelper.retrieveCellsMulti("/home/le.thi.thuyb/Documents/FunJapan_Automation/data/user.xls", 4, 4);
+		return data;
+	}
+	
+	@Test(priority=2, dataProvider="testSearch_ClientID_Not_Existed")
+	public void Search_ClientID (String ExpSearch, String Result_test) {
+		driver.get("http://fun-auto-test.framgia.vn/admin/coupons");
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		driver.findElement(By.xpath("//div[@class='input-group-btn']")).click();
+		WebElement listArticleIDSearch = driver.findElement(By.xpath("//ul[@class='dropdown-menu search-by']"));
+		List<WebElement> options = listArticleIDSearch.findElements(By.tagName("li"));
+		options.get(0).click();
+		
+		WebElement txtInput = driver.findElement(By.cssSelector("div[class='input-group col-md-10 '] input[type='text']"));
+		txtInput.sendKeys(ExpSearch);
+		
+		WebElement btnSearch = driver.findElement(By.cssSelector("button[class='btn btn-primary bg-custom']"));
+		btnSearch.click();
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		WebElement result = driver.findElement(By.cssSelector(".table.table-bordered.article-table tbody tr td span"));
+				Assert.assertEquals(result.getText(),Result_test);
 	}
 }
