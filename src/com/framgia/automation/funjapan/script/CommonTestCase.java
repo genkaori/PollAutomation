@@ -13,7 +13,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import com.framgia.automation.funjapan.util.Setting;
 import com.framgia.automation.funjapan.util.XLSHelper;
 
@@ -25,11 +24,12 @@ public abstract class CommonTestCase {
 		System.setProperty(Setting.getSetting(Setting.WEBDRIVER), Setting.getSetting(Setting.WEBDRIVER_PATH));
 		driver = new ChromeDriver();
 		driver.get(Setting.getSetting(URL_ADMIN));
+		driver.manage().window().maximize();
 	}
 
 	@AfterTest
 	public void end() {
-		driver.quit();
+//		driver.quit();
 	}
 
 	@DataProvider
@@ -38,7 +38,6 @@ public abstract class CommonTestCase {
 		return data;
 	}
 
-	
 	public void testLogin(String email, String pass) {
 		WebElement btnLogin = driver
 				.findElement(By.cssSelector("a[href='http://fun-auto-test.framgia.vn/admin/account/facebook']"));
