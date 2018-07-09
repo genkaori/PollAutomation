@@ -66,9 +66,5 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 		WebElement check_Author = driver.findElement(By.name("author_id"));
 		Assert.assertEquals(check_Author.getAttribute("value").equals("8"), true);
 		
-		
-		
 	}
-	
-
 }
