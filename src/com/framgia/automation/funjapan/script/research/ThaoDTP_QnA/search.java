@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.framgia.automation.funjapan.script.CommonTestCase;
-import com.framgia.automation.funjapan.util.XLSHelper_1;
+import com.framgia.automation.funjapan.util.XLSHelper;
 
 public class search extends CommonTestCase {
 	@Test(priority = 1, dataProvider = "SetLogin")
@@ -19,7 +19,7 @@ public class search extends CommonTestCase {
 
 	@DataProvider
 	public Object[][] PartOfQuestion() {
-		Object[][] data = XLSHelper_1.retrieveCellsMulti(1, 2, 2);
+		Object[][] data = XLSHelper.retrieveCellsMulti("data/Thao_test_data.xls", 2, 2);
 		return data;
 	}
 
@@ -52,12 +52,15 @@ public class search extends CommonTestCase {
 			
 			Assert.assertTrue(str.contains(question));
 		}
+		
+		WebElement txtKeyword1 = divContent.findElement(By.cssSelector("form > div > input"));
+		Assert.assertEquals(txtKeyword1.getAttribute("value"),question);
 
 	}
 
 	@DataProvider
 	public Object[][] FullQuestion() {
-		Object[][] data = XLSHelper_1.retrieveCellsMulti(1, 3, 3);
+		Object[][] data = XLSHelper.retrieveCellsMulti("Thao_test_data.xls", 3, 3);
 		return data;
 	}
 
@@ -91,5 +94,7 @@ public class search extends CommonTestCase {
 			Assert.assertEquals(str, question);
 		}
 
+		WebElement txtKeyword1 = divContent.findElement(By.cssSelector("form > div > input"));
+		Assert.assertEquals(txtKeyword1.getAttribute("value"),question);
 	}
 }

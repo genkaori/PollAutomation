@@ -1,9 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Umami Automation" >
- <test name="Test Signup" >
+<suite name="Fun!Japan Automation" >
+ <test name="Test Login" >
   <classes>
-   <class name="test.Exercise" ></class>
+   <class name="com.framgia.automation.funjapan.script.CommonTestCase" />
   </classes>
  </test>
- 
 </suite>

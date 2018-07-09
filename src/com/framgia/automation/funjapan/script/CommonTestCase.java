@@ -26,10 +26,11 @@ public abstract class CommonTestCase {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(Setting.getSetting(URL_ADMIN));
+		driver.manage().window().maximize();
 	}
 
 	@AfterTest
-	public static void end() {
+	public void end() {
 		driver.quit();
 	}
 
