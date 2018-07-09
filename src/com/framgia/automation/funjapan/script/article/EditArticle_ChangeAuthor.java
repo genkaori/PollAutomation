@@ -1,19 +1,9 @@
 package com.framgia.automation.funjapan.script.article;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
-
-import org.apache.xpath.functions.Function;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -60,7 +50,7 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 			e.printStackTrace();
 		}
 
-		WebElement button_Article_Draft=driver.findElement(By.xpath("//button[@class='btn btn-primary btn-w-m create-action save-draft text-uppercase'"));
+		WebElement button_Article_Draft=driver.findElement(By.xpath("//button[@data-url='http://fun-auto-test.framgia.vn/admin/articles/validate']"));
 		 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		 		js.executeScript("arguments[0].click();", button_Article_Draft);
 		
@@ -69,18 +59,14 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		WebDriverWait wait2 = new WebDriverWait(driver, 20);
-		WebElement Check_Article_Modify = wait2.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"page-wrapper\"]/div[3]/div[3]/div/div/div/div/table/tbody/tr[1]/td[4]/a")));
+
+		WebElement Check_Article_Modify = driver.findElement(By.cssSelector("a[href=\"http://fun-auto-test.framgia.vn/admin/articles/1319/edit\"]"));
 		Check_Article_Modify.click();
 		
-		
 		WebElement check_Author = driver.findElement(By.name("author_id"));
-		Assert.assertEquals(check_Author.getText(), author);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		Assert.assertEquals(check_Author.getAttribute("value").equals("8"), true);
+		
+		
 		
 	}
 	

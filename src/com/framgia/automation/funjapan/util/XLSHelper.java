@@ -59,7 +59,7 @@ public class XLSHelper {
 				} else {
 					data[element][j] = row.getCell(j).getStringCellValue();
 
-					System.out.println(row.getCell(j).getStringCellValue());
+//					System.out.println(row.getCell(j).getStringCellValue());
 
 				}
 
