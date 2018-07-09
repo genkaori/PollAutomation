@@ -53,14 +53,14 @@ public class search extends CommonTestCase {
 			Assert.assertTrue(str.contains(question));
 		}
 		
-		WebElement txtKeyword1 = divContent.findElement(By.cssSelector("form > div > input"));
+		WebElement txtKeyword1 = driver.findElement(By.cssSelector("#page-wrapper > div.wrapper.wrapper-content > div.wrapper.wrapper-content.animated.fadeInRight > div > div > div > div.ibox-content > div > div > form > div > input"));
 		Assert.assertEquals(txtKeyword1.getAttribute("value"),question);
 
 	}
 
 	@DataProvider
 	public Object[][] FullQuestion() {
-		Object[][] data = XLSHelper.retrieveCellsMulti("Thao_test_data.xls", 3, 3);
+		Object[][] data = XLSHelper.retrieveCellsMulti("data/Thao_test_data.xls", 3, 3);
 		return data;
 	}
 
@@ -94,7 +94,7 @@ public class search extends CommonTestCase {
 			Assert.assertEquals(str, question);
 		}
 
-		WebElement txtKeyword1 = divContent.findElement(By.cssSelector("form > div > input"));
+		WebElement txtKeyword1 = driver.findElement(By.cssSelector("#page-wrapper > div.wrapper.wrapper-content > div.wrapper.wrapper-content.animated.fadeInRight > div > div > div > div.ibox-content > div > div > form > div > input"));
 		Assert.assertEquals(txtKeyword1.getAttribute("value"),question);
 	}
 }
