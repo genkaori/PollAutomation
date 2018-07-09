@@ -28,8 +28,7 @@ public abstract class CommonTestCase {
 		 options.addArguments("disable-infobars");
 		driver = new ChromeDriver();
 		driver.get(Setting.getSetting(URL_ADMIN));
-		
-
+		driver.manage().window().maximize();
 	}
 
 	@AfterTest
@@ -43,7 +42,6 @@ public abstract class CommonTestCase {
 		return data;
 	}
 
-	
 	public void testLogin(String email, String pass) {
 		WebElement btnLogin = driver
 				.findElement(By.cssSelector("a[href='http://fun-auto-test.framgia.vn/admin/account/facebook']"));
