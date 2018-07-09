@@ -25,7 +25,7 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 	}
 	
 	@Test(priority=2, dataProvider="SetAuthor")
-	public void ChangeAuthor(String author, String value) {
+	public void ChangeAuthor(String author, String value_author) {
 
 		driver.get("http://fun-auto-test.framgia.vn/admin/articles/813");
 		try {
@@ -64,7 +64,7 @@ public class EditArticle_ChangeAuthor extends CommonTestCase {
 		Check_Article_Modify.click();
 		
 		WebElement check_Author = driver.findElement(By.name("author_id"));
-		Assert.assertEquals(check_Author.getAttribute("value").equals(value), true);
+		Assert.assertEquals(check_Author.getAttribute("value").equals(value_author), true);
 		
 	}
 }
