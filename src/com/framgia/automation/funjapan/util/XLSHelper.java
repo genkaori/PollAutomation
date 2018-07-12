@@ -69,5 +69,24 @@ public class XLSHelper {
 		}
 		return data;
 	}
+	
+	public static Object[][] getValueRow1ToRow2AndCol(String file, int sheetNum, int rowNum1, int rowNum2, int colNum) {
+		readXLS(file);
+		int rowNum = rowNum2 - rowNum1 + 1;
+		Object data[][] = new Object[rowNum][colNum];
+		int temp = 0;
+		for (int i = rowNum1 - 1; i < rowNum2; i++) {
+			HSSFRow row = wb.getSheetAt(sheetNum).getRow(i);
+			for (int j = 0; j < colNum; j++) {
+				if (row.getCell(j) == null) {
+					data[temp][j] = "";
+				} else {
+					data[temp][j] = row.getCell(j).getStringCellValue();
+				}
+			}
+			temp++;
+		}
+		return data;
 
+	}
 }
