@@ -9,46 +9,49 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.framgia.automation.funjapan.script.CommonTestCase;
+import com.framgia.automation.funjapan.util.Setting;
+import com.framgia.automation.funjapan.util.XLSHelper;
 
 public class ResearchArticleEdit extends CommonTestCase {
-	private String EDIT_ARTICLES_ID = "1320";
-
 	@Test(priority = 0, dataProvider = "SetLogin")
 	public void testLogin(String email, String pass) {
 		super.testLogin(email, pass);
 	}
 
 	// TC ID: 218 Research Article edit => Change Author
-	@Test(priority = 1)
-	public void testChangeAuthor() {
-		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + EDIT_ARTICLES_ID);
+	@DataProvider
+	public Object[][] GetDataEditArticleID() {
+		Object[][] data = XLSHelper.getValueRow1ToRow2AndCol(Setting.getSetting(Setting.DATA_FILE), 2, 3, 3, 1);
+		return data;
+	}
+
+	@Test(priority = 1, dataProvider = "GetDataEditArticleID")
+	public void testChangeAuthor(String articleID) {
+		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + articleID);
 		// get info before you change author
 		HashMap<String, String> before = getDataReseachArticleEditPage();
-
 		// choose another author
 		Select listbox = new Select(driver.findElement(By.id("author_id")));
 		List<WebElement> options = listbox.getOptions();
 		for (WebElement webElement : options) {
 			if (!(before.get("author").equals(webElement.getAttribute("value")))
-					&& (!webElement.getText().contains("Select Author"))) {
+					&& !(webElement.getAttribute("value").isEmpty())) {
 				listbox.selectByValue(webElement.getAttribute("value"));
 				break;
 			}
 		}
-
 		// Click on "Draft" button
 		WebElement btnDraft = driver.findElement(By.xpath("//button[contains(@class,'save-draft')]"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", btnDraft);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// driver.findElement(By.xpath("//a[contains(@class,'btn-modify')]")).click();
-		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + EDIT_ARTICLES_ID + "']")).click();
-
+		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + articleID + "']")).click();
 		// get info after you changed author
 		HashMap<String, String> after = getDataReseachArticleEditPage();
-
 		Assert.assertNotEquals(after.get("author"), before.get("author"), "Please choose another author");
 		Set<String> keys = after.keySet();
 		keys.remove("author");
@@ -58,12 +61,11 @@ public class ResearchArticleEdit extends CommonTestCase {
 	}
 
 	// TC ID: 220 Research Article edit => Change Client ID
-	@Test(priority = 2)
-	public void testChangeClientId() {
-		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + EDIT_ARTICLES_ID);
+	@Test(priority = 2, dataProvider = "GetDataEditArticleID")
+	public void testChangeClientId(String articleID) {
+		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + articleID);
 		// get info before you change author
 		HashMap<String, String> before = getDataReseachArticleEditPage();
-
 		// choose another client id
 		Select listbox = new Select(driver.findElement(By.id("client_id")));
 		List<WebElement> options = listbox.getOptions();
@@ -73,18 +75,15 @@ public class ResearchArticleEdit extends CommonTestCase {
 				break;
 			}
 		}
-
 		// Click on "Draft" button
 		WebElement btnDraft = driver.findElement(By.xpath("//button[contains(@class,'save-draft')]"));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", btnDraft);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// driver.findElement(By.xpath("//a[contains(@class,'btn-modify')]")).click();
-		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + EDIT_ARTICLES_ID + "']")).click();
-
+		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + articleID + "']")).click();
 		// get info after you changed author
 		HashMap<String, String> after = getDataReseachArticleEditPage();
-
 		Assert.assertNotEquals(after.get("client_id"), before.get("client_id"), "Please choose another client id");
 		Set<String> keys = after.keySet();
 		keys.remove("client_id");
@@ -94,24 +93,22 @@ public class ResearchArticleEdit extends CommonTestCase {
 	}
 
 	// TC ID: 222 Research Article edit => Change Change Category
-	@Test(priority = 3)
-	public void testChangeChangeCategory() {
-		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + EDIT_ARTICLES_ID);
+	@Test(priority = 3, dataProvider = "GetDataEditArticleID")
+	public void testChangeCategory(String articleID) {
+		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + articleID);
 		// get info before you change author
 		HashMap<String, String> before = getDataReseachArticleEditPage();
 
 		// choose another client id
 		Select listbox = new Select(driver.findElement(By.id("category_id")));
 		List<WebElement> options = listbox.getOptions();
-		System.out.println(before.get("category"));
 		for (WebElement webElement : options) {
 			if (!(before.get("category").equals(webElement.getAttribute("value")))
-					&& (!webElement.getText().contains("Select Category"))) {
+					&& !(webElement.getAttribute("value").isEmpty())) {
 				listbox.selectByValue(webElement.getAttribute("value"));
 				break;
 			}
 		}
-		
 
 		// Click on "Draft" button
 		WebElement btnDraft = driver.findElement(By.xpath("//button[contains(@class,'save-draft')]"));
@@ -119,11 +116,10 @@ public class ResearchArticleEdit extends CommonTestCase {
 		js.executeScript("arguments[0].click();", btnDraft);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// driver.findElement(By.xpath("//a[contains(@class,'btn-modify')]")).click();
-		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + EDIT_ARTICLES_ID + "']")).click();
+		driver.findElement(By.cssSelector("a[href*='admin/researchArticles/edit/" + articleID + "']")).click();
 
 		// get info after you changed author
 		HashMap<String, String> after = getDataReseachArticleEditPage();
-
 		Assert.assertNotEquals(after.get("category"), before.get("category"), "Please choose another category");
 		Set<String> keys = after.keySet();
 		keys.remove("category");
@@ -132,17 +128,43 @@ public class ResearchArticleEdit extends CommonTestCase {
 		}
 	}
 
+	// TC ID 226: Research Article edit > Check can't enter Published time > End
+	// published time
+	@DataProvider
+	public Object[][] GetDataChangePublished() {
+		Object[][] data = XLSHelper.getValueRow1ToRow2AndCol(Setting.getSetting(Setting.DATA_FILE), 2, 6, 6, 4);
+		return data;
+	}
+
+	@Test(priority = 4, dataProvider = "GetDataChangePublished")
+	public void testChangePublished(String articleID, String publishedTime, String endPublishedTime, String error) {
+		driver.get("http://fun-auto-test.framgia.vn/admin/researchArticles/edit/" + articleID);
+		driver.findElement(By.name("publish_date")).clear();
+		driver.findElement(By.name("publish_date")).sendKeys(publishedTime);
+		driver.findElement(By.name("end_publish_date")).clear();
+		driver.findElement(By.name("end_publish_date")).sendKeys(endPublishedTime);
+		// Click on "Draft" button
+		WebElement btnDraft = driver.findElement(By.xpath("//button[contains(@class,'save-draft')]"));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", btnDraft);
+		String errorMessage = driver.findElement(By.xpath("//div[contains(@class, 'alert-danger')]")).getText();
+		Assert.assertTrue(errorMessage.contains(error));
+	}
+
 	public HashMap<String, String> getDataReseachArticleEditPage() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		// author
 		Select listbox = new Select(driver.findElement(By.id("author_id")));
 		map.put("author", listbox.getFirstSelectedOption().getAttribute("value"));
 		// country
-		map.put("country", new Select(driver.findElement(By.id("locale_id"))).getFirstSelectedOption().getAttribute("value"));
+		map.put("country",
+				new Select(driver.findElement(By.id("locale_id"))).getFirstSelectedOption().getAttribute("value"));
 		// client id
-		map.put("client_id", new Select(driver.findElement(By.id("client_id"))).getFirstSelectedOption().getAttribute("value"));
+		map.put("client_id",
+				new Select(driver.findElement(By.id("client_id"))).getFirstSelectedOption().getAttribute("value"));
 		// category
-		map.put("category", new Select(driver.findElement(By.id("category_id"))).getFirstSelectedOption().getAttribute("value"));
+		map.put("category",
+				new Select(driver.findElement(By.id("category_id"))).getFirstSelectedOption().getAttribute("value"));
 		// published date
 		map.put("published_date", driver.findElement(By.id("publish_date")).getAttribute("value"));
 		// published time
