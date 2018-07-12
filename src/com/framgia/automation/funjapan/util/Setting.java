@@ -10,6 +10,7 @@ public class Setting {
 	public static final String URL_ADMIN = "url-admin";
 	public static final String DATA_FILE = "data-file";
 	public static final String DATA_ARTICLE_LIST = "data-article-file";
+
 	public static String getSetting(String key) {
 		return setting.getProperty(key);
 	}
