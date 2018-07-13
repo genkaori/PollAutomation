@@ -11,10 +11,6 @@ import org.testng.annotations.Test;
 import com.framgia.automation.funjapan.script.CommonTestCase;
 
 public class ArticleListTestCase extends CommonTestCase {
-	final static String ARTICLE_ID = "Article ID";
-	final static String CLIENT_ID = "Client ID";
-	final static String ARTICLE_TITLE = "Article Title";
-	final static String NO_ARTICLE = "No Articles";
 
 	@Test(priority = 0, dataProvider = "SetLogin")
 	public void testLogin(String email, String pass) {
@@ -26,7 +22,7 @@ public class ArticleListTestCase extends CommonTestCase {
 	public void testSortDefault() {
 		driver.get("http://fun-auto-test.framgia.vn/admin/articles");
 		WebElement acticle_default = driver.findElement(By.xpath("//b[@class='selected-search-by']"));
-		Assert.assertEquals(true, ARTICLE_ID.contains(acticle_default.getText()));
+		Assert.assertEquals(true, Constants.ARTICLE_ID.contains(acticle_default.getText()));
 	}
 
 	// case 2: Check sort by column
@@ -68,9 +64,73 @@ public class ArticleListTestCase extends CommonTestCase {
 		Assert.assertEquals((checkKeepIdSearchOnTextBox(articleID) && searchArticleId(articleID)), true);
 	}
 
+	// case 7: Search Article ID, No articles result
+		@Test(priority = 7, dataProvider = "dataSearchArticleIdNoResult", dataProviderClass = com.framgia.automation.funjapan.script.article.list.DataProviderTest.class)
+		public void testSearchArticleIdNoResult(String articleSearch, String articleID) {
+			driver.get("http://fun-auto-test.framgia.vn/admin/articles");
+			selectSearchMethod(articleSearch, articleID);
+			Assert.assertEquals(checkIdNoResult(), true);
+		}
+
+		// case 8:  Search Article ID, max length data input
+		@Test(priority = 8, dataProvider = "dataSearchArticleIdNoResult", dataProviderClass = com.framgia.automation.funjapan.script.article.list.DataProviderTest.class)
+		public void testSearchArticleIdMaxLength(String articleSearch, String articleID) {
+			driver.get("http://fun-auto-test.framgia.vn/admin/articles");
+			selectSearchMethod(articleSearch, articleID);
+			Assert.assertEquals(checkIdNoResult(), true);
+		}
+		
+		// case 9: Search Article Title, data valid
+		@Test(priority = 9, dataProvider = "dataSearchArticleTitle", dataProviderClass = com.framgia.automation.funjapan.script.article.list.DataProviderTest.class)
+		public void testSearchArticleTitle(String articleSearch, String titleID) {
+			driver.get("http://fun-auto-test.framgia.vn/admin/articles");
+			selectSearchMethod(articleSearch, titleID);
+			Assert.assertEquals((checkKeepIdSearchOnTextBox(titleID) && searchArticleTitle(titleID)), true);
+		}
+
+		// case 10: Search Title ID, No articles result
+		@Test(priority = 10, dataProvider = "dataSearchArticleTitleNoResult", dataProviderClass = com.framgia.automation.funjapan.script.article.list.DataProviderTest.class)
+		public void testSearchArticleTitleNoResult(String articleSearch, String titleID) {
+			driver.get("http://fun-auto-test.framgia.vn/admin/articles");
+			selectSearchMethod(articleSearch, titleID);
+			Assert.assertEquals(checkIdNoResult(), true);
+		}
+		
+		
+		public boolean checkIdNoResult() {
+			WebElement element = driver.findElement(By.xpath("//span[@class='label label-warning']"));
+			return Constants.NO_ARTICLE.equals(element.getText()) ? true : false;
+		}
+
+		public boolean searchArticleTitle(String id){
+			boolean isID = false;
+			WebElement element = driver.findElement(By.xpath("//table//tbody"));
+			List<WebElement> rows = element.findElements(By.tagName("tr"));
+			System.out.println("size "+rows.size());
+			for (WebElement row : rows) {
+				WebElement td = row.findElements(By.tagName("td")).get(3);
+				WebElement a = null;
+				try {
+					a = td.findElement(By.cssSelector("div > a"));
+				} catch (Exception e) {
+					
+				}
+				String str = "";
+				if(a == null) {
+					str = td.getText();
+				} else {
+					str = a.getText();
+				}
+				System.out.println("content ==="+str);
+				if (str.toLowerCase().contains(id.toLowerCase()))
+					isID = true;
+			}
+			return isID;
+		}
+		
 	public boolean checkClientIdNoResult(String id) {
 		WebElement element = driver.findElement(By.xpath("//span[@class='label label-warning']"));
-		return NO_ARTICLE.equals(element.getText()) ? true : false;
+		return Constants.NO_ARTICLE.equals(element.getText()) ? true : false;
 	}
 
 	public boolean searchArticleId(String id) {
@@ -120,8 +180,8 @@ public class ArticleListTestCase extends CommonTestCase {
 		String articleID = options.get(1).getText();
 		String articleTitle = options.get(2).getText();
 
-		return (size == 3 && ARTICLE_ID.equals(articleID) && CLIENT_ID.equals(clientID)
-				&& ARTICLE_TITLE.equals(articleTitle)) ? true : false;
+		return (size == 3 && Constants.ARTICLE_ID.equals(articleID) && Constants.CLIENT_ID.equals(clientID)
+				&& Constants.ARTICLE_TITLE.equals(articleTitle)) ? true : false;
 	}
 
 }

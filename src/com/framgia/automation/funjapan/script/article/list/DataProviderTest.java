@@ -31,4 +31,27 @@ public class DataProviderTest {
 		return data;
 	}
 	
+	@DataProvider
+	public Object[][] dataSearchArticleIdNoResult() {
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_ARTICLE_LIST), 6, 6);
+		return data;
+	}
+	
+	@DataProvider
+	public Object[][] dataSearchArticleIdMaxLength() {
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_ARTICLE_LIST), 7, 7);
+		return data;
+	}
+	
+	@DataProvider
+	public Object[][] dataSearchArticleTitle() {
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_ARTICLE_LIST), 8, 8);
+		return data;
+	}
+	
+	@DataProvider
+	public Object[][] dataSearchArticleTitleNoResult() {
+		Object[][] data = XLSHelper.retrieveCellsMulti(Setting.getSetting(Setting.DATA_ARTICLE_LIST), 9, 9);
+		return data;
+	}
 }
